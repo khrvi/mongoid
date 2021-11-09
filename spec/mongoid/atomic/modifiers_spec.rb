@@ -438,6 +438,23 @@ describe Mongoid::Atomic::Modifiers do
             expect(modifiers).to eq({})
           end
         end
+
+        context "when the modifiers already have values" do
+
+          let(:time) { Time.now }
+          let(:sets) do
+            { "time" => time }
+          end
+
+          before do
+            modifiers['$set'] = { "time" => time }
+            modifiers.set(sets)
+          end
+
+          it "adds the sets to the modifiers" do
+            expect(modifiers).to eq({ "$set" => { "time" => time } })
+          end
+        end
       end
 
       context "when a conflicting modification exists" do
