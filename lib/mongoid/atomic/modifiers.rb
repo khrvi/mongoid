@@ -109,7 +109,7 @@ module Mongoid
             value.each do |val|
               mods[field].push(val)
             end
-          elsif mods[field]['$each']
+          elsif mods[field].is_a?(Hash) && mods[field]['$each']
             mods[field]['$each'].concat(value['$each'])
           end
         else
